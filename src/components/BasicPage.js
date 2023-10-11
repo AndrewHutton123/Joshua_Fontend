@@ -9,7 +9,7 @@ const styles = {
 
 
 export default function BasicPage() {
-  const [colorChange, setColorChange] = useState('blue')
+  const [colorChange, setColorChange] = useState('black')
   const [canvasSize, setCanvasSize] = useState({width: '100vw', height: '90vh'})
     const canvasTestRef = React.useRef(null)
     
@@ -18,9 +18,8 @@ export default function BasicPage() {
         canvasTestRef.current.undo();
     }
 
-    const handleColourChange = () => {
-        // canvasTestRef.strokeColor ="green"
-        setColorChange('green')
+    const handleColourChange = (e) => {
+        setColorChange(e.target.value)
     }
 
     const handleCanvasSizeChange = () => {
@@ -86,9 +85,12 @@ export default function BasicPage() {
     <button onClick={handleUndo}>
         Undo
     </button>
-    <button onClick={handleColourChange}>
+    <input type='color'
+      onChange={handleColourChange}
+    />
+    {/* <button onClick={handleColourChange}>
         change colour
-    </button>
+    </button> */}
     <button onClick={handleCanvasSizeChange}>
         change Size
     </button>
