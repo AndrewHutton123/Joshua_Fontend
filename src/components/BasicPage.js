@@ -9,16 +9,17 @@ const styles = {
 
 
 export default function BasicPage() {
-  const [colorChange, setColorChange] = useState('blue')
+  const [colorChange, setColorChange] = useState('black')
   const [canvasSize, setCanvasSize] = useState({width: '100vw', height: '90vh'})
     const canvasTestRef = React.useRef(null)
+    
 
     const handleUndo = () => {
         canvasTestRef.current.undo();
     }
 
-    const handleColourChange = () => {
-        canvasTestRef.strokeColor ="green"
+    const handleColourChange = (e) => {
+        setColorChange(e.target.value)
     }
 
     const handleCanvasSizeChange = () => {
@@ -27,17 +28,16 @@ export default function BasicPage() {
 
     const handleRedraw = async () => {
         const testPaths = await canvasTestRef.current.exportPaths()
+        console.log(testPaths, 'the export paths')
         const sketchingTime = await canvasTestRef.current.getSketchingTime()
-        console.log(testPaths)
-        console.log(sketchingTime)
-        canvasTestRef.current.clearCanvas()
+        console.log(sketchingTime, 'sketching time')
+        // canvasTestRef.current.clearCanvas()
         const overallStartTime = testPaths[0].startTimestamp
         const overallEndTime = testPaths[testPaths.length - 1].endTimestamp
         const lastPoint = testPaths[testPaths.length - 1].paths.slice(-1)[0]
-        console.log(lastPoint)
-        console.log(overallEndTime - overallStartTime)
+        // console.log(lastPoint)
+        // console.log(overallEndTime - overallStartTime)
         let totalPath = []
-
         testPaths.forEach(path => {
             const startTime = path.startTimestamp
             const endTime = path.endTimestamp
@@ -50,24 +50,24 @@ export default function BasicPage() {
                     endTimestamp: path.endTimestamp,
                     startTimestamp: path.startTimestamp,
                 }
-                console.log(path.paths.slice(0, index))
+                // console.log(path.paths.slice(0, index))
                 window.setTimeout(() => {
                     // console.log(index)
                     // console.log(path.paths.length)
                     // console.log(endTime - overallStartTime)
                     // console.log((endTime - startTime)/path.paths.length * (index + 1))
                     // console.log(objToDraw)
-                    canvasTestRef.current.resetCanvas()
+
+                    // K-B. I Commented out the line underneath as it was clearing the canvas after every line drawn.
+                    // canvasTestRef.current.resetCanvas()
                     canvasTestRef.current.loadPaths(objToDraw)
                     // console.log("HERE")
                 }, (endTime - startTime)/path.paths.length * (index + 1) + (startTime - overallStartTime))
-                
             })
             // need some logic to add previous paths
             // Was thinking to use some kind of logic to concat the arrays but it doesn't work with the timings at the moment
             // totalPath = totalPath.concat(path)
         })
-
       }
 
     
@@ -85,16 +85,23 @@ export default function BasicPage() {
     <button onClick={handleUndo}>
         Undo
     </button>
-    <button onClick={handleColourChange}>
+    <input type='color'
+      onChange={handleColourChange}
+    />
+    {/* <button onClick={handleColourChange}>
         change colour
-    </button>
+    </button> */}
     <button onClick={handleCanvasSizeChange}>
         change Size
     </button>
     <button onClick={handleCanvasSizeChange}>
         change Size
     </button>
-    <button onClick={handleRedraw}>
+    <button onClick={() => {
+      // Added in the clearing before the function is called. This could also be done on the first line of the function handleRedraw. We will need to have a way to handle people redrawing when there is nothing on the canvas as it is currently an error.
+      canvasTestRef.current.resetCanvas()
+      handleRedraw()
+    }}>
         Redraw
     </button>
       </>
