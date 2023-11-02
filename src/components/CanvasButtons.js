@@ -7,22 +7,23 @@ export default function CanvasButtons({ canvasDetails, canvasTestRef, setCanvasD
     console.log(canvasDetails)
     console.log(e.target.value)
   }
-  const handleEraserButton = () => {
-    setCanvasDetails({...canvasDetails, eraseMode: !canvasDetails.eraseMode})
-    canvasTestRef.current.eraseMode(canvasDetails.eraseMode)
+  const handleEraserButton = (boolean) => {
+    canvasTestRef.current.eraseMode(boolean)
   }
   return (
-    <>
+    <div className="canvas-btns">
       <input type='color'
+      className="color-wheel"
       name='strokeColor'
       onChange={handleChange}
       />
       <input
       name='strokeWidth'
+      value={canvasDetails.strokeWidth}
       onChange={(e) => {
-        // if (e.target.value > 100) e.target.value = 100;
         handleChange(e)}
       }
+      className='canvas-input'
       >
       </input>
       <button
@@ -30,21 +31,34 @@ export default function CanvasButtons({ canvasDetails, canvasTestRef, setCanvasD
         console.log(canvasDetails)
         console.log(canvasTestRef.current)
       }}
+      className='canvas-btn'
       >Test</button>
       <button
       name='eraseMode'
-      onClick={handleEraserButton}
+      onClick={() => handleEraserButton(false)}
+      className='canvas-btn'
       >Pencil</button>
       <button
       name='eraseMode'
-      onClick={handleEraserButton}
+      onClick={() => handleEraserButton(true)}
+      className='canvas-btn'
       >Eraser</button>
-      <button>Undo</button>
-      <button>Redo</button>
       <button
-      
+      onClick={() => canvasTestRef.current.undo()}
+      className='canvas-btn'
+      >Undo</button>
+      <button
+      onClick={() => canvasTestRef.current.redo()}
+      className='canvas-btn'
+      >Redo</button>
+      <button
+      // Tried with clearCanvas to try and keep the undo stack but undo goes a bit funny when you clearCanvas. The undo stack will not be updated with anything after the clearCanvas was done it will undo to what it was before the clearCanvas was done.
+      onClick={() => canvasTestRef.current.resetCanvas()}
+      className='canvas-btn'
       >Reset</button>
-      <button>Save</button>
-    </>
+      <button
+      className='canvas-btn'
+      >Save</button>
+    </div>
   )
 }

@@ -7,34 +7,39 @@ export default function HomePage() {
   const canvasTestRef = React.useRef(null)
 
   const [ canvasDetails, setCanvasDetails ] = useState({
-    canvasWidth: '200px',
-    canvasHeight: '200px',
+    canvasWidth: '65vw',
+    canvasHeight: '60vh',
     strokeColor: 'black',
     strokeWidth: '10',
-    eraseMode: true,
   })
 
   const Canvas = () => {
     return(
     <ReactSketchCanvas
-      width='300px'
-      height='200px'
+      width={canvasDetails.canvasWidth}
+      height={canvasDetails.canvasHeight}
       strokeColor={canvasDetails.strokeColor}
       strokeWidth={canvasDetails.strokeWidth}
       eraserWidth={canvasDetails.strokeWidth}
       ref={canvasTestRef}
+      className='canvas'
     />
     )
   }
     return (
-      <>
-        <button>Canvas Size</button>
-        {Canvas()}
+      <main className="main-page">
+        <div className="canvas-container">
+          <aside></aside>
+          {Canvas()}
+          <aside className="save-data">
+            <button>Aside</button>
+          </aside>
+        </div>
         <CanvasButtons 
         canvasDetails={canvasDetails}
         setCanvasDetails={setCanvasDetails}
         canvasTestRef={canvasTestRef}
         />
-      </>
+      </main>
     )
 }

@@ -1,43 +1,82 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 nav h2 {
   margin: 1.2rem auto;
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.canvas-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+aside {
+  min-width: 4rem;
+  max-width: 4rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.save-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas {
+  box-shadow: black 0.2rem 0.2rem 0.4rem;
+}
+
+.canvas-btns {
+  display: flex;
+  margin: 0.6rem 0;
+  
+}
+
+.color-wheel {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0 0.2rem;
+  border: none;
+}
+/* Don't touch below it helps create the circular color wheel */
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  border-radius: 50%;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+.canvas-input {
+  margin: 0 0.2rem;
+  border-radius: 1.5rem;
+}
+
+.canvas-btn {
+  margin: 0 0.2rem;
+  background-color: transparent;
+  border: none;
+  padding: 0.6rem;
+}
+
+.canvas-input:hover {
+  box-shadow: black 0.2rem 0.2rem 0.4rem;
+}
+
+.canvas-btn:hover, .color-wheel:hover {
+  cursor: pointer;
+  scale: 1.1;
+  box-shadow: black 0.2rem 0.2rem 0.4rem;
+  border-radius: 1.35rem;
 }
