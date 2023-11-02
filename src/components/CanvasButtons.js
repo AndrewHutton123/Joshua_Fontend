@@ -7,10 +7,10 @@ export default function CanvasButtons({ canvasDetails, canvasTestRef, setCanvasD
     console.log(canvasDetails)
     console.log(e.target.value)
   }
-  // const handleStrokeChange = (e) => {
-  //   canvasDetails.strokeWidth =  parseInt(e.target.value)
-  //   setCanvasDetails({...canvasDetails})
-  // }
+  const handleEraserButton = () => {
+    setCanvasDetails({...canvasDetails, eraseMode: !canvasDetails.eraseMode})
+    canvasTestRef.current.eraseMode(canvasDetails.eraseMode)
+  }
   return (
     <>
       <input type='color'
@@ -31,8 +31,14 @@ export default function CanvasButtons({ canvasDetails, canvasTestRef, setCanvasD
         console.log(canvasTestRef.current)
       }}
       >Test</button>
-      <button>Pencil</button>
-      <button>Eraser</button>
+      <button
+      name='eraseMode'
+      onClick={handleEraserButton}
+      >Pencil</button>
+      <button
+      name='eraseMode'
+      onClick={handleEraserButton}
+      >Eraser</button>
       <button>Undo</button>
       <button>Redo</button>
       <button

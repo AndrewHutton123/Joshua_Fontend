@@ -11,7 +11,7 @@ export default function HomePage() {
     canvasHeight: '200px',
     strokeColor: 'black',
     strokeWidth: '10',
-    eraseMode: false,
+    eraseMode: true,
   })
 
   const Canvas = () => {
@@ -22,6 +22,7 @@ export default function HomePage() {
       strokeColor={canvasDetails.strokeColor}
       strokeWidth={canvasDetails.strokeWidth}
       eraserWidth={canvasDetails.strokeWidth}
+      ref={canvasTestRef}
     />
     )
   }
